@@ -44,28 +44,27 @@ console.log(totaltRosterIHogInkomstKommun[0].total_roster_2022);
 console.log(borgerligaRosterIHogInkomstKommun[0].m_l_kd_2022);
 
 addMdToPage(`
-  ## Jämförelse % M_L_KD röstande mellan Låg Inkomst Kommuner med Hög Inkomst Kommuner`);
+  #### Jämförelse av andelen röster för M, L och KD mellan kommuner med låg och hög inkomst`);
 
 
 drawGoogleChart({
   type: 'ColumnChart',
   data: [
-    ['Income Group', 'Percentage'],
-    ['Low-Income Municipalities', procentM_L_KD_LagInkomst],
-    ['High-Income Municipalities', procentM_L_KD_HogInkomst]
+    ['Inkomst Groupper', 'Procent'],
+    ['Låg Inkomst Kommuner', procentM_L_KD_LagInkomst],
+    ['Hög Inkomst Kommuner', procentM_L_KD_HogInkomst]
   ],
   options: {
-    title: 'Comparison of % Votes for M_L_KD in Low-Income vs High-Income Municipalities',
     height: 500,
     width: 900,
     chartArea: { left: 70, width: '80%' },
     vAxis: {
-      title: 'Percentage (%)',
+      title: 'Procent (%)',
       minValue: 0,
       maxValue: 100
     },
     hAxis: {
-      title: 'Income Group',
+      title: 'Inkomst Grouper',
     },
     bar: { groupWidth: '60%' },
     colors: ['#ffa500', '#4caf50'],
@@ -73,70 +72,12 @@ drawGoogleChart({
   }
 });
 
-
-/*
-let a = await dbQuery(`MATCH (n:Partiresultat)
-WHERE n.kommun IN["Vallentuna", "Österåker", "Värmdö", "Huddinge", "Salem", "Tyresö", "Nacka", "Solna", "Vaxholm", "Håbo", "Knivsta", "Danderyd", "Kävlinge", "Härryda", "Stenungsund", "Lerum", "Öckerö", "Ekerö", "Nykvarn", "Täby", "Lidingö", "Trosa", "Staffanstorp", "Vellinge", "Kungsbacka", "Partille", "Tjörn", "Sollentuna", "Stockholm", "Sundbyberg", "Habo", "Kungälv", "Hammarö", "Lomma", "Svedala", "Ale", "Bollebygd", "Mölndal", "Kiruna", "Gällivare"]
-AND n.parti IN['Moderaterna', 'Liberalerna ', 'Kristdemokraterna']
-WITH n.kommun AS kommun, SUM(n.roster2022) AS total_roster_2022
-RETURN kommun, total_roster_2022`);
-//a = a.map(x => x.total_roster_2022);
-
-console.log(a)
-drawGoogleChart({
-  type: 'Histogram',
-  data: makeChartFriendly(a, 'total_roster_2022'),
-  options: {
-    height: 500,
-    width: 1250,
-    histogram: { bucketSize: 0.5 },
-    hAxis: { title: 'Studietillfredsställelse' },
-    vAxis: { title: 'Frekvens' },
-    legend: { position: 'none' }
-  }
-})
-*/
-
-/*
-let a = await dbQuery(`
-MATCH (n:Partiresultat)
-WHERE n.kommun IN [
-  "Vallentuna", "Österåker", "Värmdö", "Huddinge", "Salem", "Tyresö", "Nacka",
-  "Solna", "Vaxholm", "Håbo", "Knivsta", "Danderyd", "Kävlinge", "Härryda",
-  "Stenungsund", "Lerum", "Öckerö", "Ekerö", "Nykvarn", "Täby", "Lidingö",
-  "Trosa", "Staffanstorp", "Vellinge", "Kungsbacka", "Partille", "Tjörn",
-  "Sollentuna", "Stockholm", "Sundbyberg", "Habo", "Kungälv", "Hammarö",
-  "Lomma", "Svedala", "Ale", "Bollebygd", "Mölndal", "Kiruna", "Gällivare"
-]
-AND n.parti IN ['Moderaterna', 'Liberalerna', 'Kristdemokraterna']
-WITH n.kommun AS kommun, SUM(n.roster2022) AS total_roster_2022
-RETURN kommun, total_roster_2022
-`);
-
-// Dùng tổng phiếu bầu để vẽ histogram
-// Nếu cần, bạn có thể bỏ map ra nếu `makeChartFriendly` đã tự xử lý
-// a = a.map(x => x.total_roster_2022);
-
-console.log(a);
-
-drawGoogleChart({
-  type: 'Histogram',
-  data: makeChartFriendly(a, 'total_roster_2022'),
-  options: {
-    height: 500,
-    width: 1250,
-    histogram: {
-      bucketSize: 500  // Chia khoảng 500 phiếu 1 bin, nếu cần tự động thì bỏ bucketSize đi
-    },
-    hAxis: { title: 'Tổng phiếu bầu cho M + L + KD' },
-    vAxis: { title: 'Số lượng kommun' },
-    legend: { position: 'none' }
-  }
-});
-*/
+addMdToPage(`
+Här är den centrala diagrammen i vår undersökning. Det är ett stapeldiagram där staplarna representerar procentandelen som stödjer partierna M, L och KD. I gruppen av kommuner med hög inkomst är stödet 33,63 %, medan det i gruppen med lägre inkomst är 27,58 %. Detta resultat stödjer vår hypotes att kommuner med högre inkomst tenderar att stödja partierna M, L och KD. Däremot kan jag inte dra en slutsats att hypotesen är korrekt enbart baserat på detta diagram.`);
 
 
-
+addMdToPage(`
+#### Test av normalfördelning för datan`);
 
 // vẽ histogram cho phần trăm phiếu bầu cho M+L+KD để kiểm tra phân phối chuẩn
 
@@ -157,9 +98,14 @@ drawGoogleChart({
   }
 })
 
+addMdToPage(`
+Och här är diagrammet som visar fördelningen av data. I detta diagram ser vi att det har en form som liknar en normalfördelning, men det är inte helt symmetriskt och är något snedfördelat åt höger. Det finns också några outliers över 48 % och under 26 %.`);
 
 
 
+
+addMdToPage(`
+#### Normalfördelningstest 1`);
 // kiểm tra normalfördelning lần 1
 
 // Lấy dữ liệu 'Procent' từ data
@@ -177,9 +123,8 @@ tableFromData({
   columnNames: ['Shapiro-Wilk,&nbsp;w', 'p-värde', 'Normalfördelning?']
 });
 
-
-
-
+addMdToPage(`
+#### Normalfördelningstest 2 (Utan outliers)`);
 // kiểm tra normalfördelning lần 2
 
 // Bước 1: Lọc bỏ các giá trị outlier khỏi data2
@@ -203,7 +148,8 @@ tableFromData({
   data: [result2],
   columnNames: ['Shapiro-Wilk,&nbsp;w', 'p-värde', 'Normalfördelning?']
 });
-
+addMdToPage(`
+Resultatet efter två tester visar att datan inte är normalfördelad. Därför kan jag inte genomföra ett T-test.`);
 
 
 
@@ -250,7 +196,7 @@ let absCorrelation = Math.abs(correlation);
 
 // Bước 5: Hiển thị hệ số tương quan
 addMdToPage(`
-  ## Spridningsdiagram: Medianinkomst 2022 och % röster för M+L+KD
+  ## Spridningsdiagram: Medianinkomst 2022 och % röster för M+L+KD (Kommuner med hög inkomst)
   Korrelationskoefficient: ${correlation.toFixed(2)} 
   (${absCorrelation < 0.1 ? 'Ingen korrelation' : absCorrelation < 0.5 ?
     'Svagt ' + (correlation > 0 ? 'positiv' : 'negativ') :
@@ -272,6 +218,8 @@ drawGoogleChart({
   }
 });
 
+addMdToPage(`
+Detta spridningsdiagram som visar korrelationen mellan medianinkomst 2022 och andelen röster för M, L och KD i gruppen kommuner med hög inkomst. Resultatet visar en korrelationskoefficient på 0,59 (stark positiv), vilket innebär att när medianinkomsten ökar, tenderar stödet för M, L och KD också att öka. Vi kan också se att inom inkomstintervallet 340 000–390 000 SEK varierar stödet kraftigt – från cirka 20 % till cirka 50 %.`);
 
 
 
@@ -340,4 +288,9 @@ drawGoogleChart({
   }
 });
 
+addMdToPage(`
+Och här är ett annat spridningsdiagram som visar korrelationen mellan medianinkomst 2022 och andelen röster för M, L och KD i gruppen kommuner med lägre inkomst. Även här ser vi ett starkt samband – när inkomsten ökar, tenderar stödet för M, L och KD också att öka. Dock är korrelationskoefficienten något lägre, 0,53.`);
 
+
+addMdToPage(`
+**Slutsats:** Baserat på korrelationskoefficienterna och de två spridningsdiagrammen kan jag dra slutsatsen att det finns ett starkt samband mellan högre medianinkomst 2022 och ökat stöd för M, L och KD. Detta samband är särskilt tydligt i gruppen av kommuner med hög inkomst. Resultatet stödjer därmed min ursprungliga hypotes att kommuner med högre inkomst tenderar att stödja partierna M, L och KD.`);
