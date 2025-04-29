@@ -3,6 +3,8 @@ createMenu('Statistics Template JS', [
   { name: 'Visa ett år', script: 'one-year.js' },
   { name: 'Jämför två år', script: 'compare-two-years.js' },
   { name: 'Hitta trender', script: 'trends.js' },
+  { name: 'kommun', script: 'kommun.js' },
+  { name: 'roster2022', script: 'anmol.js' }
   { name: 'test dataset', script: 'sida1.js' },
   { name: 'Huvuddiagram / Normalfördelning och Korrelation', script: 'Johan2.js' },
   { name: 'Medianinkomst VS Utbildningsnivå per kommun 2022', script: 'Johan1.js' },
