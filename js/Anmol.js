@@ -17,7 +17,7 @@ dbQuery.use('riksdagsval-neo4j');
 let data = await dbQuery(`
   MATCH (n:Partiresultat)
   WHERE n.parti IN ['Moderaterna', 'Liberalerna', 'Kristdemokraterna']
-    AND n.kommun IN ['${ kommunerInLan.join("','") }']
+    AND n.kommun IN ['${kommunerInLan.join("','")}']
   RETURN 
     n.kommun AS kommun, 
     SUM(n.roster2022) AS total_roster_2022
