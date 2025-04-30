@@ -4,7 +4,7 @@ console.log(countyInfo);
 
 // Lägg till rubrik
 addToPage(`
-  <h1> Befolkningstäthet och Röster på Moderaterna, Liberalerna och Kristdemokraterna i Varje Län: Ett Stapeldiagram. </h1>
+  <h1> Befolkning och Röster på M, L och K i Varje Län. </h1>
   <h3>Statistik per Län 2022</h3>
   <canvas id="myChart" width="800" height="300"></canvas>    
 `);
