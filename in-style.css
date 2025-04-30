@@ -36,6 +36,11 @@ p {
 
 main {
   padding-bottom: 30px;
+
+}
+
+.container {
+  margin-top: 150px;
 }
 
 td.right:nth-child(1) {

@@ -1,7 +1,9 @@
-createMenu('Statistics Template JS', [
-  { name: 'Nytt i version 7', script: 'new-in-v7.js' },
-  { name: 'Visa ett år', script: 'one-year.js' },
-  { name: 'Jämför två år', script: 'compare-two-years.js' },
-  { name: 'Hitta trender', script: 'trends.js' },
-  { name: 'Demo', script: 'demo.js' }
+createMenu('Undersökning Riksdagsval 2022', [
+  { name: 'Inledning (Johan)', script: 'Johan-inledning.js' },
+  { name: 'Medianinkomst VS Utbildningsnivå per kommun 2022 (Johan)', script: 'Johan1.js' },
+  { name: 'kommun (Anmol)', script: 'kommun.js' },
+  { name: 'Huvuddiagram / Normalfördelning och Korrelation/ Slutsater (Johan)', script: 'Johan2.js' },
+  { name: 'Extra slutsatser (Johan)', script: 'Johan3.js' },
+  { name: 'Jamila', script: 'demo.js' }
 ]);
+
