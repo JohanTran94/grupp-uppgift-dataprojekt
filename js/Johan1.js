@@ -1,4 +1,3 @@
-// Bước 1: Lấy dữ liệu từ MongoDB và SQLite như trước
 dbQuery.use('kommun-info-mongodb');
 
 let incomeData = (await dbQuery.collection('incomeByKommun').find({ kon: 'totalt' }))
@@ -40,14 +39,14 @@ let merged = incomeData
   })
   .filter(Boolean);
 
-// Bước 2: Dropdown filter theo thu nhập
+
 let filterVal = addDropdown("Filtrera kommuner", [
   "Alla kommuner",
   "Medianinkomst > 330",
   "Medianinkomst < 330",
 ]);
 
-// Bước 3: Lọc dữ liệu theo filter 1
+
 let filtered = merged;
 if (filterVal === "Medianinkomst > 330") {
   filtered = merged.filter(k => k.medianIncome > 330);
@@ -55,17 +54,17 @@ if (filterVal === "Medianinkomst > 330") {
   filtered = merged.filter(k => k.medianIncome < 330);
 }
 
-// Bước 4: Dropdown 2: Chọn kommun cụ thể từ danh sách sau khi lọc
+
 let kommuner = filtered.map(k => k.kommun).sort();
 let selectedKommun = addDropdown("Välj kommun", ["Alla", ...kommuner]);
 
-// Bước 5: Lọc tiếp nếu người dùng chọn kommun cụ thể
+
 let finalData = filtered;
 if (selectedKommun !== "Alla") {
   finalData = filtered.filter(k => k.kommun === selectedKommun);
 }
 
-// Bước 6: Vẽ biểu đồ với dữ liệu đã chọn
+
 let chartData = makeChartFriendly(
   finalData,
   "Kommun",
@@ -89,6 +88,3 @@ drawGoogleChart({
 
 addMdToPage(`
 Denna visualisering visar att det finns en tydlig skillnad i medianinkomst mellan kommuner med hög respektive låg andel gymnasieutbildade invånare. Genom att dela upp kommunerna i två grupper baserat på medianinkomst kan vi tydligare analysera hur inkomstnivån kan påverka röstmönster i riksdagsvalet 2022. Den här uppdelningen skapar en viktig grund för att vidare undersöka vår hypotes om att kommuner med högre inkomster tenderar att rösta mer på borgerliga partier, särskilt Moderaterna, Liberalerna och Kristdemokraterna. Vi kommer senare att koppla detta till valresultaten för att se om trenden bekräftas.`);
-
-
-
